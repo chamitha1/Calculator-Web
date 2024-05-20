@@ -20,7 +20,21 @@ btnContainer.addEventListener("click",(evt)=>{
     if (evt.target.textContent == "AC") displayContent = "";
     
     if (evt.target.textContent == "="){
-        result = evaluate(displayContent);
+        numAr = evaluate(displayContent);
+        let firstNum = numAr[1];
+        let secondNum = numAr[2];
+        let operator = numAr[0];
+        let result;
+
+        console.log(firstNum + " > " + secondNum+ " > "+" > "+operator);
+        console.log(displayContent);
+
+        if(!numAr.includes(operator)){
+            result  = displayContent.split(/=/g)[0];
+            console.log(result)
+        }else{
+            result = operate(operator,firstNum,secondNum);
+        }
         displayContent = result;
     } 
 
@@ -66,15 +80,15 @@ function isOperator(val){
             return false;
         }
 }
+
 function evaluate(str){
     let numAr = str.split(/[^0-9\" \"]/g);
-    console.log(numAr);
+
     let firstNum = Number(numAr[0]);
     let secondNum = Number(numAr[1]);
-    console.log(firstNum +" " + secondNum);
     let operator = str.split("")
                       .filter((x)=> isOperator(x));
-    console.log(operator);
-    return operate(operator,firstNum,secondNum); //Returns the result of operation
+    
+    return [operator,firstNum,secondNum];
 
 }
