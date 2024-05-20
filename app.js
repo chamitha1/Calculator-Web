@@ -43,13 +43,13 @@ let displayContent = "";
 
 
 btnContainer.addEventListener("click",(evt)=>{
-    if(evt.target == btnContainer){
+    if(evt.target == btnContainer ){
         displayContent +="";
     }else{
         displayContent += ` ${evt.target.textContent}`;
     }
 
-    if (evt.target == btnClear) displayContent = "";
+    if (evt.target.textContent == "AC") displayContent = "";
 
     display.textContent = displayContent;
 });
