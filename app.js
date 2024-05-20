@@ -35,4 +35,23 @@ function operate(operator, num1, num2){
     }
 }
 
+const btnContainer = document.querySelector(".btn-container");
+const display = document.querySelector(".display");
+const btnClear = document.querySelector(".btn-clear")
+
+let displayContent = "";
+
+
+btnContainer.addEventListener("click",(evt)=>{
+    if(evt.target == btnContainer){
+        displayContent +="";
+    }else{
+        displayContent += ` ${evt.target.textContent}`;
+    }
+
+    if (evt.target == btnClear) displayContent = "";
+
+    display.textContent = displayContent;
+});
+
 
