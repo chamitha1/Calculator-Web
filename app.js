@@ -2,6 +2,7 @@ let firstNum;
 let secondNum;
 let operator;
 let displayContent = "0";
+let number = "";
 
 const btnContainer = document.querySelector(".btn-container");
 const display = document.querySelector(".display");
@@ -72,21 +73,41 @@ for(let i=0; i<btnNums.length ; i++){
 //Operators Listener
 for(let i=0; i<btnOperators.length; i++){
     btnOperators[i].addEventListener("click",(evt)=>{
-        if(!(/[-+*/]/.test(displayContent))){   //YOU CAN CAPTURE THE OPERATOR FROM HERE TOO
-            displayContent += evt.target.textContent;  
+        if(!(/[-+*/]/.test(number))){   //YOU CAN CAPTURE THE OPERATOR FROM HERE TOO
+            displayContent += evt.target.textContent; 
+            number = displayContent;
+            displayContent = "";
             display.textContent = displayContent;
+            console.log(number+" if");
+        }else{
+            number += displayContent;
+            console.log(number+" --82");
+            let numberAr = number.split(/[^0-9 ]/g);
+            if(numberAr.length < 2 || numberAr[1] == '0') return; /* Checking if the user
+                                                                entered 2 numbers.*/
+            console.log(number+" --86");
+            let num_op_arr = evaluate(number);
+            let num1 = num_op_arr[1];
+            let num2 = num_op_arr[2];
+            let op = num_op_arr[0];
+            result = operate(op,num1,num2);
+            displayContent = Math.round(result * 10)/10;
+            display.textContent = displayContent;
+
+            displayContent += evt.target.textContent;
+            number = displayContent;
         }
-        return;
     });
 }
 
 //Equal Listener
 btnEqual.addEventListener("click", (evt)=>{
-    let numbers = displayContent.split(/[^0-9 ]/g);
-    if(numbers.length < 2 || numbers[1] == '0') return; /* Checking if the user
+    number += displayContent;
+    let numberAr = number.split(/[^0-9 ]/g);
+    if(numberAr.length < 2 || numberAr[1] == '0') return; /* Checking if the user
                                                          entered 2 numbers.*/
 
-    let num_op_arr = evaluate(displayContent);
+    let num_op_arr = evaluate(number);
     let num1 = num_op_arr[1];
     let num2 = num_op_arr[2];
     let op = num_op_arr[0];
@@ -105,6 +126,7 @@ btnDecimal.addEventListener("click", (evt)=>{
 //Clear Listener
 btnClear.addEventListener("click", (evt)=>{
     displayContent = 0;
+    number = "";
     display.textContent = displayContent
 });
 
