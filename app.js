@@ -64,37 +64,57 @@ function equalFunction(){
     result = operate(op,num1,num2);
     displayContent = Math.round(result * 10)/10;
     display.textContent = displayContent;
+    number = displayContent;
+}
+
+function enterNum(evt){
+    if(displayContent == '0') {
+        //checking whether a keyboard event or mouse event 
+        displayContent = (evt.type == "click") ? evt.target.textContent: evt.key;
+        display.textContent = displayContent;
+        return;
+    } //replace 0
+
+    displayContent += evt.type == "click" ? evt.target.textContent: evt.key;
+    display.textContent = displayContent;
+}
+
+function enterOperator(evt){
+    if(!(/[-+*/]/.test(number))){
+        displayContent += evt.type == "click" ? evt.target.textContent: evt.key;
+        number = displayContent;
+        displayContent = "0";
+        display.textContent = displayContent;
+    }else{
+        number += displayContent;
+        equalFunction();
+        //num + operator
+        number += evt.type == "click" ? evt.target.textContent: evt.key ;
+        displayContent = "0";
+    }
+}
+
+function backspace(){
+    let ar = display.textContent.slice(0,length-1);
+    console.log(ar);
+    displayContent = ar;
+    display.textContent = ar;
+}
+
+function decimal(){
+    if(/[.]/.test(displayContent)) return;
+    displayContent += ".";
+    display.textContent = displayContent;
 }
 
 //Numbers Listener
 for(let i=0; i<btnNums.length ; i++){
-    btnNums[i].addEventListener("click", (evt)=>{
-        if(displayContent == '0') {
-            displayContent = evt.target.textContent
-            display.textContent = displayContent;
-            return;
-        } //replace 0
-
-        displayContent += evt.target.textContent;
-        display.textContent = displayContent;
-    });
-} 
+    btnNums[i].addEventListener("click", enterNum )
+}
 
 //Operators Listener
 for(let i=0; i<btnOperators.length; i++){
-    btnOperators[i].addEventListener("click",(evt)=>{
-        if(!(/[-+*/]/.test(number))){   //YOU CAN CAPTURE THE OPERATOR FROM HERE TOO
-            displayContent += evt.target.textContent; 
-            number = displayContent;
-            displayContent = "0";
-            display.textContent = displayContent;
-        }else{
-            number += displayContent;
-            equalFunction();
-            number = display.textContent + evt.target.textContent; //num + operator
-            displayContent = "0";
-        }
-    });
+    btnOperators[i].addEventListener("click", enterOperator);
 }
 
 //Equal Listener
@@ -108,20 +128,10 @@ btnEqual.addEventListener("click", (evt)=>{
 }); 
 
 //Decimal Listener
-btnDecimal.addEventListener("click", (evt)=>{
-    if(/[.]/.test(displayContent)) return;
-    displayContent += ".";
-    display.textContent = displayContent;
-});
+btnDecimal.addEventListener("click", decimal)
 
-//Percent Listener
-btnBackspace.addEventListener('click',(evt)=>{
-    let ar = display.textContent.split("")
-    ar.pop();
-    ar.join("");
-    displayContent = ar;
-    display.textContent = ar;
-});
+//Backspace Listener
+btnBackspace.addEventListener('click',backspace)
 
 //Clear Listener
 btnClear.addEventListener("click", (evt)=>{
@@ -131,3 +141,62 @@ btnClear.addEventListener("click", (evt)=>{
 });
 
 
+document.addEventListener("keyup", (evt)=>{
+    switch(evt.key){
+        case '1' :
+            enterNum(evt);
+            break;
+        case '2':
+            enterNum(evt);
+            break;
+        case '3':
+            enterNum(evt);
+            break;
+        case '4':
+            enterNum(evt);
+            break;
+        case '5':
+            enterNum(evt);
+            break;
+        case '6':
+            enterNum(evt);
+            break;
+        case '7':
+            enterNum(evt);
+            break;
+        case '8':
+            enterNum(evt);
+            break;
+        case '9':
+            enterNum(evt);
+            break;
+        case '0':
+            enterNum(evt);
+            break;
+        case '+':
+            enterOperator(evt);
+            break;
+        case '-':
+            enterOperator(evt);
+            break;
+        case '*':
+            enterOperator(evt);
+            break;
+        case '/':
+            enterOperator(evt);
+            break;
+        case '=':
+            number += displayContent;
+            let numberAr = number.split(/[^0-9 ]/g);
+            if(numberAr.length < 2 || numberAr[1] == '0') return;
+            equalFunction();
+            break;
+        case '.':
+            decimal();
+            break;
+        case 'Backspace':
+            backspace();
+            break;
+
+    }
+});

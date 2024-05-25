@@ -5,6 +5,7 @@ body{
 }
 
 .calculator{
+    background-color: #e5f1ed;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -14,9 +15,12 @@ body{
     height: 500px;
     margin: 0;
     padding: 0;
+    box-shadow: 4px 3px 20px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .display{
+    border-radius: 16px;
+    background-color: #b5ffe694;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -25,8 +29,8 @@ body{
     margin: 5px 10px 0 10px;
     padding: 0 5px 0 5px;
     width: 100%;
-    height:100px;
-    border:solid 1px black;
+    height: 100px;
+    border: solid 1px black;
     letter-spacing: 3px;
 }
 
@@ -49,8 +53,50 @@ body{
 }
 .zero{
     width:188px;
+    border-radius: 12px;
+    background-color: #c1b9ffb3;
+    transition: 0.2s;
 }
 
 .btn-clear{
     width: 188px;
+}
+
+.btn-equal, .btn-clear, .btn-back{
+    border-radius: 12px;
+    background-color: #ffadad;
+    transition: 0.2s;
+}
+
+.btn-decimal{
+    border-radius: 12px;
+    background-color: #fed7a4;
+    transition: 0.2s;
+}
+
+.btn-num{
+    border-radius: 12px;
+    background-color: #78efffc2;
+    transition: 0.2s;
+}
+
+.btn-operator{
+    border-radius: 12px;
+    background-color: #c1b9ffb3;
+    transition: 0.2s;
+}
+
+.btn-operator:hover{
+    background-color: #e1deff;
+}
+.btn-num:hover{
+    background-color: #d6faff;
+}
+
+.btn-equal:hover, .btn-clear:hover, .btn-back:hover{
+    background-color: #ffcaca;
+}
+
+.btn-decimal:hover{
+    background-color: #ffddafd4;
 }
